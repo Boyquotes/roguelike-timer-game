@@ -1,6 +1,7 @@
-GPUParticles2D
-AnimationPlayer
 Timer
+AnimationPlayer
+AnimationTree
+GPUParticles2D
 Node2D
 Sprite2D
 Polygon2D

@@ -1,7 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://cw3jiydl3hkwj"]
+[gd_scene load_steps=8 format=3 uid="uid://cw3jiydl3hkwj"]
 
 [ext_resource type="Script" path="res://scenes/game/player/projectiles/basic_bullet.gd" id="1_f62gm"]
+[ext_resource type="Shader" path="res://addons/framework/shaders/usable_shaders/smear.gdshader" id="1_hn4ow"]
 [ext_resource type="Texture2D" uid="uid://brqlvamguws2b" path="res://scenes/game/player/projectiles/basic_bullet.png" id="1_o1ufg"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hm7ku"]
+shader = ExtResource("1_hn4ow")
+shader_parameter/dir = Vector2(0.2, 0)
+shader_parameter/quality = 10
+shader_parameter/flash = null
 
 [sub_resource type="Animation" id="Animation_6jdm0"]
 resource_name = "spawn"
@@ -41,6 +48,7 @@ _data = {
 }
 
 [node name="basic_bullet" type="Sprite2D"]
+material = SubResource("ShaderMaterial_hm7ku")
 scale = Vector2(1e-05, 1e-05)
 texture = ExtResource("1_o1ufg")
 script = ExtResource("1_f62gm")
@@ -50,3 +58,10 @@ autoplay = "spawn"
 libraries = {
 "": SubResource("AnimationLibrary_4feuq")
 }
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

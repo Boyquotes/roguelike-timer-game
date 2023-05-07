@@ -6,8 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://dt2q21orn5lwe" path="res://scenes/game/player/player_head.png" id="3_v15gs"]
 [ext_resource type="Texture2D" uid="uid://d264qpxd84p70" path="res://scenes/game/player/UI/cursor.png" id="4_oy7f5"]
 [ext_resource type="Script" path="res://scenes/game/player/UI/cursor.gd" id="5_h3gsf"]
-[ext_resource type="Texture2D" uid="uid://vis3i4yiw8c0" path="res://vfx/dust_particles.png" id="7_3stto"]
 [ext_resource type="PackedScene" uid="uid://clsswd73pm6wu" path="res://scenes/game/player/weapons/pistol/pistol.tscn" id="8_c28qu"]
+[ext_resource type="PackedScene" path="res://addons/framework/op_nodes/shakeable_camera_2d.tscn" id="8_qaipp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lrq1y"]
 shader = ExtResource("2_e6ddp")
@@ -144,12 +144,6 @@ _data = {
 "run": SubResource("Animation_3rhfl")
 }
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_agb13"]
-particles_animation = true
-particles_anim_h_frames = 3
-particles_anim_v_frames = 1
-particles_anim_loop = false
-
 [sub_resource type="Curve" id="Curve_mrv7s"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0361446, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
@@ -172,8 +166,9 @@ angle_min = -720.0
 angle_max = 720.0
 scale_min = 0.5
 scale_curve = SubResource("CurveTexture_fs0a8")
-anim_speed_min = 0.8
-anim_speed_max = 0.8
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_w3gy1"]
+load_path = "res://.godot/imported/dust_particles.png-36efeea6c633412c1e4c73aadf216cf7.ctex"
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qxinp"]
 radius = 3.0
@@ -210,13 +205,10 @@ script = ExtResource("5_h3gsf")
 
 [node name="run_particles" type="GPUParticles2D" parent="."]
 show_behind_parent = true
-material = SubResource("CanvasItemMaterial_agb13")
 position = Vector2(0, -3)
 emitting = false
 process_material = SubResource("ParticleProcessMaterial_amq5r")
-texture = ExtResource("7_3stto")
-explosiveness = 0.1
-randomness = 1.0
+texture = SubResource("CompressedTexture2D_w3gy1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -3)
@@ -225,3 +217,7 @@ shape = SubResource("CapsuleShape2D_qxinp")
 
 [node name="pistol_anchor" parent="." instance=ExtResource("8_c28qu")]
 position = Vector2(0, -10)
+
+[node name="camera" parent="." instance=ExtResource("8_qaipp")]
+position_smoothing_enabled = true
+position_smoothing_speed = 15.0

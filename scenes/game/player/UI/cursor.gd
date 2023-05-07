@@ -5,3 +5,7 @@ func _ready():
 
 func _process(delta):
 	global_position = get_global_mouse_position()
+	scale = lerp(scale, Vector2(1, 1), delta * 12)
+
+func animate():
+	scale = Vector2(1.3, 1.3)

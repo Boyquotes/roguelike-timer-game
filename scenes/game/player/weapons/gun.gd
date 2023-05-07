@@ -4,11 +4,17 @@ extends Sprite2D
 @export var automatic     := true
 @export var bullet_speed  := 800.0
 @export var firerate      := 8
+@export var spread        := 5
+@export var recoil        := 15.0
 @export var projectile_scene : PackedScene
+
+@export var shake_strength := 2
 
 var can_shoot = false
 @onready var world  := get_parent().get_parent().get_parent()
+@onready var player := get_parent().get_parent()
 @onready var anchor := get_parent()
+@onready var cursor := get_parent().get_parent().get_node("UI/cursor")
 
 func _ready():
 	$reload_timer.wait_time = 1.0 / firerate
@@ -40,14 +46,24 @@ func shoot():
 	can_shoot = false
 	
 	var barrel_end = $barrel_end.global_position
-	var projectile = projectile_scene.instantiate()
 	
-	projectile.global_position = barrel_end
-	projectile.velocity = Vector2(bullet_speed, .0).rotated(get_shoot_angle())
-	
+	# animation
+	$AnimationPlayer.play("shoot")
+	player.camera.shake(shake_strength, 8, 0.1, rad_to_deg(get_shoot_angle()))
+	cursor.animate()
 	VfxManager.play_vfx("gun_shoot", barrel_end, get_shoot_angle())
 	
-	world.add_child(projectile)
+	# shooting
+	for i in bullet_amount:
+		var projectile = projectile_scene.instantiate()
+		
+		projectile.global_position = barrel_end
+		projectile.velocity = Vector2(bullet_speed, .0).rotated(get_shoot_angle())
+		projectile.velocity = projectile.velocity.rotated(deg_to_rad(randf_range(-spread * 0.5, spread * 0.5)))
+		
+		world.add_child(projectile)
+	
+	player.knockback -= Vector2(recoil, 0).rotated(get_shoot_angle())
 	
 	$reload_timer.start()
 
