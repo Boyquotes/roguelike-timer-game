@@ -1,0 +1,7 @@
+res://test.tscn
+res://scenes/game/player/player.tscn
+res://scenes/game/game.tscn
+res://addons/framework/singletons/PostProcessCanvas.tscn
+res://scenes/game/player/player.gd
+res://addons/framework/shaders/post_processing.gdshader
+res://scenes/game/player/UI/cursor.gd

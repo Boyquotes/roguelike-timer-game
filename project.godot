@@ -10,8 +10,8 @@ config_version=5
 
 [application]
 
-config/name="Godot 4 Framework 1.1"
-run/main_scene="res://test.tscn"
+config/name="roguelike timed game"
+run/main_scene="res://scenes/game/game.tscn"
 config/features=PackedStringArray("4.0", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -25,13 +25,16 @@ PostProcessing="*res://addons/framework/singletons/PostProcessCanvas.tscn"
 
 [display]
 
-window/size/viewport_width=1024
-window/size/viewport_height=600
-window/stretch/mode="viewport"
+window/size/mode=3
+window/stretch/scale=4.0
 
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/framework/plugin.cfg")
+
+[gui]
+
+common/snap_controls_to_pixels=false
 
 [input]
 
@@ -65,3 +68,7 @@ rclick={
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":2,"position":Vector2(61, 22),"global_position":Vector2(65, 65),"factor":1.0,"button_index":2,"pressed":true,"double_click":false,"script":null)
 ]
 }
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0

@@ -8,6 +8,7 @@ uniform float vignette_noise_warp_speed : hint_range(0.0, 3.0, 0.1);
 uniform vec2 centre = vec2(.5, .5);
 uniform float distance_pow : hint_range(1.0, 5.0, 0.1);
 uniform float distance_multiplyer : hint_range(0.0, 4.0, 0.1);
+uniform float chromatic_abberation : hint_range(0.0, 1.0, 0.1);
 
 uniform float warp : hint_range(0.0, 10.0, 0.1);
 
@@ -29,7 +30,7 @@ void fragment() {
 	dist = pow(dist, distance_pow) * distance_multiplyer;
 	
 	float chromatic_dist = distance(uv, centre) * 2.0;
-	chromatic_dist = pow(chromatic_dist, 3.0);
+	chromatic_dist = pow(chromatic_dist, 3.0) * chromatic_abberation;
 	
 	// Get on screen pixel color (pixel.r and pixel.b are offset due to chromatic abberation)
 	vec4 pixel = vec4(
