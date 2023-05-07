@@ -8,6 +8,8 @@ var kill_timer = preload("res://addons/framework/op_nodes/kill_timer.tscn")
 func _ready():
 	add_vfx("shockwave", "res://addons/framework/op_nodes/vfx/shockwave.tscn")
 	add_vfx("real_shockwave", "res://addons/framework/op_nodes/vfx/realistic_shockwave.tscn")
+	
+	add_vfx("gun_shoot", "res://vfx/gun_shoot.tscn")
 
 func set_target(new_target):
 	target = new_target
@@ -28,7 +30,7 @@ func play_vfx(name : String, pos : Vector2, rot : float = 0.0, scale : Vector2 =
 	var kill_timer_node = kill_timer.instantiate()
 	kill_timer_node.wait_time = duration
 	vfx_node.add_child(kill_timer_node)
-		
+	
 	target.add_child(vfx_node)
 	
 	return vfx_node

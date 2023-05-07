@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://clsswd73pm6wu"]
+
+[ext_resource type="Script" path="res://scenes/game/player/weapons/gun.gd" id="1_l56hn"]
+[ext_resource type="Texture2D" uid="uid://cdb4118ynnshd" path="res://scenes/game/player/weapons/pistol/pistol.png" id="1_vlrlw"]
+[ext_resource type="PackedScene" uid="uid://cw3jiydl3hkwj" path="res://scenes/game/player/projectiles/basic_bullet.tscn" id="3_l3iyt"]
+
+[node name="pistol_anchor" type="Node2D"]
+
+[node name="pistol" type="Sprite2D" parent="."]
+position = Vector2(10, -1)
+texture = ExtResource("1_vlrlw")
+script = ExtResource("1_l56hn")
+automatic = false
+projectile_scene = ExtResource("3_l3iyt")
+
+[node name="barrel_end" type="Node2D" parent="pistol"]
+position = Vector2(7, -0.5)
+
+[node name="reload_timer" type="Timer" parent="pistol"]
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="pistol/reload_timer" to="pistol" method="reload"]

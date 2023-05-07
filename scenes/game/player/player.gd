@@ -17,11 +17,14 @@ func _process(delta):
 	else:
 		$AnimationPlayer.play("idle")
 	
-	$run_particles.emitting  = is_running
+	$run_particles.emitting = is_running
 	
 	$sprites.scale.x = lerp($sprites.scale.x,
 		float(get_global_mouse_position().x > global_position.x) * 2 - 1,
 		delta * 12
 	)
+	if abs($sprites.scale.x) < 0.5: $sprites.scale.x *= -2
+	
+	$sprites.rotation = lerp($sprites.rotation, velocity.x * 0.002, delta * 8)
 	
 	move_and_slide()

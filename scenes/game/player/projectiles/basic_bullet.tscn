@@ -1,0 +1,52 @@
+[gd_scene load_steps=6 format=3 uid="uid://cw3jiydl3hkwj"]
+
+[ext_resource type="Script" path="res://scenes/game/player/projectiles/basic_bullet.gd" id="1_f62gm"]
+[ext_resource type="Texture2D" uid="uid://brqlvamguws2b" path="res://scenes/game/player/projectiles/basic_bullet.png" id="1_o1ufg"]
+
+[sub_resource type="Animation" id="Animation_6jdm0"]
+resource_name = "spawn"
+length = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.01, 0.0499453),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(2, 2), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_yjx7r"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4feuq"]
+_data = {
+"RESET": SubResource("Animation_yjx7r"),
+"spawn": SubResource("Animation_6jdm0")
+}
+
+[node name="basic_bullet" type="Sprite2D"]
+scale = Vector2(1e-05, 1e-05)
+texture = ExtResource("1_o1ufg")
+script = ExtResource("1_f62gm")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "spawn"
+libraries = {
+"": SubResource("AnimationLibrary_4feuq")
+}

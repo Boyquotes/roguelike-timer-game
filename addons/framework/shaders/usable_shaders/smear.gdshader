@@ -4,6 +4,7 @@
 shader_type canvas_item;
 uniform vec2 dir = vec2(0.2,0);
 uniform int quality = 10;
+uniform bool flash;
 
 void vertex(){
 	vec2 blurSize = abs(dir) * 2.0;
@@ -34,5 +35,9 @@ void fragment(){
 		COLOR += texture(TEXTURE, uv) * inSquare;
 	}
 	COLOR.rgb /= numSamples;
+	if (flash) {
+		COLOR.rgb = vec3(1.0, 1.0, 1.0);
+	}
+	
 	COLOR.a /= float(quality)*2.0 + 1.0;
 }

@@ -1,5 +1,11 @@
 GPUParticles2D
-CanvasLayer
 AnimationPlayer
+Timer
+Node2D
+Sprite2D
+Polygon2D
+Area2D
+CollisionShape2D
+CanvasLayer
 CanvasGroup
 CharacterBody2D
