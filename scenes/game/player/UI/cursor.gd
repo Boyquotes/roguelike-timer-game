@@ -8,4 +8,4 @@ func _process(delta):
 	scale = lerp(scale, Vector2(1, 1), delta * 12)
 
 func animate():
-	scale = Vector2(1.3, 1.3)
+	scale = Vector2(1.35, 1.35)
