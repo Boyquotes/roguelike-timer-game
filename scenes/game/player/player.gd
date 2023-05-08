@@ -2,8 +2,13 @@ extends CharacterBody2D
 
 const SPEED : float = 125
 const ZOOM  := 0.2
+const DASH_SPEED := 700
 
 var knockback := Vector2.ZERO
+
+var dashing  := false
+var can_dash := true
+var dash_vel := Vector2.ZERO
 
 @onready var camera := $camera
 
@@ -18,10 +23,26 @@ func _process(delta):
 	
 	vel = lerp(vel, movement_input * SPEED, delta * 12)
 	
-	var is_running = vel.length() > 100
+	if Input.is_action_just_pressed("dash") and can_dash and movement_input.length() != 0:
+		dashing  = true
+		can_dash = false
+		
+		dash_vel  = movement_input * DASH_SPEED
+		$sprites/PlayerBody.material.set("shader_parameter/dir", Vector2(-movement_input.x * (int($sprites.scale.x > 0) * 2 - 1), -movement_input.y) * 0.35)
+		create_tween().tween_property(
+			$sprites/PlayerBody.material, "shader_parameter/dir", Vector2.ZERO, 0.25
+		).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
+		$AnimationPlayer.play("dash")
+		
+		$dash_timer.start()
+		
+	$dash_particles.emitting = dashing
+	
+	var is_running = vel.length() > 100 and !dashing
+	
 	if is_running:
 		$AnimationPlayer.play("run")
-	else:
+	elif !dashing:
 		$AnimationPlayer.play("idle")
 	
 	$run_particles.emitting = is_running
@@ -36,7 +57,40 @@ func _process(delta):
 	
 	$camera.position = lerp($camera.position, get_local_mouse_position() * ZOOM, delta * 12)
 	
-	velocity = vel + knockback
+	if !dashing:
+		velocity = vel + knockback
+	else:
+		velocity = dash_vel
+	
 	move_and_slide()
 	
 	knockback *= delta * 60 * 0.9
+	
+	if Input.is_action_just_pressed("swap"):
+		if has_node("shotgun_anchor"):
+			var pistol = load("res://scenes/game/player/weapons/pistol/pistol.tscn").instantiate()
+			pistol.position.y = -9
+			add_child(pistol)
+			$shotgun_anchor.queue_free()
+		else:
+			var shotgun = load("res://scenes/game/player/weapons/shotgun/shotgun.tscn").instantiate()
+			shotgun.position.y = -9
+			add_child(shotgun)
+			$pistol_anchor.queue_free()
+
+
+func _on_dash_timer_timeout():
+	dashing = false
+	$dash_recovery.start()
+
+func _on_dash_recovery_timeout():
+	can_dash = true
+	flash()
+	
+	
+func flash():
+	$sprites/PlayerBody.material.set("shader_parameter/flash", true)
+	$flash_timer.start()
+
+func _on_flash_timer_timeout():
+	$sprites/PlayerBody.material.set("shader_parameter/flash", false)

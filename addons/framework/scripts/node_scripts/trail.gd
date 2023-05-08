@@ -4,11 +4,12 @@ extends Line2D
 
 @onready var point_offset   = position
 @onready var parent_position = get_parent().global_position
+@export var active = true
 
 func _process(delta):
 	global_position = Vector2.ZERO
 	
-	if parent_position != get_parent().global_position:
+	if parent_position != get_parent().global_position and active:
 		parent_position = get_parent().global_position
 		
 		add_point(parent_position + point_offset)

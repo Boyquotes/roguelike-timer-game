@@ -17,3 +17,6 @@ res://scenes/game/player/weapons/pistol/pistol.tscn
 res://vfx/gun_shoot.tscn
 res://addons/framework/scripts/vfx_manager.gd
 res://scenes/game/game.gd
+res://components/Attack.gd
+res://scenes/game/player/weapons/shotgun/shotgun.tscn
+res://addons/framework/scripts/node_scripts/trail.gd

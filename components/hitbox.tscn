@@ -4,3 +4,5 @@
 
 [node name="hitbox" type="Area2D" groups=["hitbox"]]
 script = ExtResource("1_vpkai")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

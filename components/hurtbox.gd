@@ -1,5 +1,8 @@
 extends Area2D
 
-func _on_area_entered(area):
-	if area.is_in_group("hitbox"):
-		area.hit()
+var invonurable = false
+
+func hit(attack):
+	if invonurable: return
+	
+	get_parent().hit(attack)

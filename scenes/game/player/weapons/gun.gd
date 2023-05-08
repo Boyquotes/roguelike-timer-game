@@ -6,6 +6,9 @@ extends Sprite2D
 @export var firerate      := 8
 @export var spread        := 5
 @export var recoil        := 15.0
+@export var damping       := 0.0
+@export var lifetime      := 10.0
+@export var speed_random  := 0.0
 @export var projectile_scene : PackedScene
 
 @export var shake_strength := 2
@@ -60,6 +63,9 @@ func shoot():
 		projectile.global_position = barrel_end
 		projectile.velocity = Vector2(bullet_speed, .0).rotated(get_shoot_angle())
 		projectile.velocity = projectile.velocity.rotated(deg_to_rad(randf_range(-spread * 0.5, spread * 0.5)))
+		projectile.velocity *= randf_range(1.0 - speed_random, 1.0 + speed_random)
+		projectile.damping  = damping
+		projectile.lifetime = lifetime
 		
 		world.add_child(projectile)
 	
