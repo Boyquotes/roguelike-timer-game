@@ -86,6 +86,7 @@ texture = ExtResource("1_vlrlw")
 offset = Vector2(4, 0)
 script = ExtResource("1_l56hn")
 automatic = false
+firerate = 5
 projectile_scene = ExtResource("3_l3iyt")
 
 [node name="barrel_end" type="Node2D" parent="pistol"]

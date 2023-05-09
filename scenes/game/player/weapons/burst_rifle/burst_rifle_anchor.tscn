@@ -1,0 +1,118 @@
+[gd_scene load_steps=7 format=3 uid="uid://deqn47jgolw5v"]
+
+[ext_resource type="Texture2D" uid="uid://5ks404xfw0yk" path="res://scenes/game/player/weapons/burst_rifle/burst_rifle.png" id="1_r4w5p"]
+[ext_resource type="Script" path="res://scenes/game/player/weapons/gun.gd" id="2_x4rg8"]
+[ext_resource type="PackedScene" uid="uid://cw3jiydl3hkwj" path="res://scenes/game/player/projectiles/basic_bullet.tscn" id="3_dgytb"]
+
+[sub_resource type="Animation" id="Animation_vc6on"]
+resource_name = "shoot"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.2),
+"transitions": PackedFloat32Array(1, 0.25, 3.4822),
+"update": 0,
+"values": [Vector2(6, -1), Vector2(1, -1), Vector2(6, -1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.2),
+"transitions": PackedFloat32Array(1, 0.233258, 7.21),
+"update": 0,
+"values": [0.0, -0.349066, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.2),
+"transitions": PackedFloat32Array(1, 0.297302, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.75, 1.2), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_xcrk3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(6, -1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ot4wi"]
+_data = {
+"RESET": SubResource("Animation_xcrk3"),
+"shoot": SubResource("Animation_vc6on")
+}
+
+[node name="burst_rifle_anchor" type="Node2D"]
+
+[node name="burst_rifle" type="Sprite2D" parent="."]
+position = Vector2(6, -1)
+texture = ExtResource("1_r4w5p")
+offset = Vector2(4, 0)
+script = ExtResource("2_x4rg8")
+firerate = 3
+projectile_scene = ExtResource("3_dgytb")
+burst = 3
+burst_delay = 0.05
+
+[node name="barrel_end" type="Node2D" parent="burst_rifle"]
+position = Vector2(17, -0.5)
+
+[node name="reload_timer" type="Timer" parent="burst_rifle"]
+wait_time = 0.001
+one_shot = true
+autostart = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="burst_rifle"]
+libraries = {
+"": SubResource("AnimationLibrary_ot4wi")
+}
+
+[connection signal="timeout" from="burst_rifle/reload_timer" to="burst_rifle" method="reload"]

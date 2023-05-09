@@ -20,3 +20,4 @@ res://scenes/game/game.gd
 res://components/Attack.gd
 res://scenes/game/player/weapons/shotgun/shotgun.tscn
 res://addons/framework/scripts/node_scripts/trail.gd
+res://scenes/game/player/weapons/burst_rifle/burst_rifle_anchor.tscn

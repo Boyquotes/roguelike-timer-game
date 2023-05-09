@@ -65,18 +65,6 @@ func _process(delta):
 	move_and_slide()
 	
 	knockback *= delta * 60 * 0.9
-	
-	if Input.is_action_just_pressed("swap"):
-		if has_node("shotgun_anchor"):
-			var pistol = load("res://scenes/game/player/weapons/pistol/pistol.tscn").instantiate()
-			pistol.position.y = -9
-			add_child(pistol)
-			$shotgun_anchor.queue_free()
-		else:
-			var shotgun = load("res://scenes/game/player/weapons/shotgun/shotgun.tscn").instantiate()
-			shotgun.position.y = -9
-			add_child(shotgun)
-			$pistol_anchor.queue_free()
 
 
 func _on_dash_timer_timeout():

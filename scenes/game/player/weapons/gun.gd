@@ -11,6 +11,12 @@ extends Sprite2D
 @export var speed_random  := 0.0
 @export var projectile_scene : PackedScene
 
+@export var burst := 1
+@export var burst_delay := .0
+
+var bursts_left := 0
+var current_burst_delay := .0
+
 @export var shake_strength := 2
 
 var can_shoot = false
@@ -33,25 +39,34 @@ func _process(delta):
 	
 	anchor.show_behind_parent = get_shoot_angle() < 0
 	
+	if pressed_shoot():
+		bursts_left = burst
+		$AnimationPlayer.play("shoot")
+	
+	current_burst_delay -= delta
 	if should_shoot():
 		shoot()
+		current_burst_delay = burst_delay
 
-func should_shoot():
+func pressed_shoot():
 	return (
 		(Input.is_action_pressed("lclick") and automatic and can_shoot) or
 		(Input.is_action_just_pressed("lclick") and can_shoot)
 	)
+	
+func should_shoot():
+	return bursts_left != 0 and current_burst_delay < 0
 
 func get_shoot_angle():
 	return anchor.rotation
 
 func shoot():
 	can_shoot = false
+	bursts_left -= 1
 	
 	var barrel_end = $barrel_end.global_position
 	
 	# animation
-	$AnimationPlayer.play("shoot")
 	player.camera.shake(shake_strength, 8, 0.1, rad_to_deg(get_shoot_angle()))
 	cursor.animate()
 	VfxManager.play_vfx("gun_shoot", barrel_end, get_shoot_angle())

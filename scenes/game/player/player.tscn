@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://scenes/game/player/UI/cursor.gd" id="5_h3gsf"]
 [ext_resource type="Texture2D" uid="uid://dkxgdkq14n8yt" path="res://vfx/big_dust_particles.png" id="7_s81sr"]
 [ext_resource type="PackedScene" path="res://addons/framework/op_nodes/shakeable_camera_2d.tscn" id="8_qaipp"]
-[ext_resource type="PackedScene" uid="uid://dnk7upgaw3a8n" path="res://scenes/game/player/weapons/shotgun/shotgun.tscn" id="8_u3rp5"]
+[ext_resource type="PackedScene" uid="uid://deqn47jgolw5v" path="res://scenes/game/player/weapons/burst_rifle/burst_rifle_anchor.tscn" id="9_ee6i8"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lrq1y"]
 shader = ExtResource("2_e6ddp")
@@ -300,9 +300,6 @@ shape = SubResource("CapsuleShape2D_qxinp")
 position_smoothing_enabled = true
 position_smoothing_speed = 15.0
 
-[node name="shotgun_anchor" parent="." instance=ExtResource("8_u3rp5")]
-position = Vector2(0, -9)
-
 [node name="dash_timer" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
@@ -314,6 +311,9 @@ one_shot = true
 [node name="flash_timer" type="Timer" parent="."]
 wait_time = 0.05
 one_shot = true
+
+[node name="burst_rifle_anchor" parent="." instance=ExtResource("9_ee6i8")]
+position = Vector2(0, -8)
 
 [connection signal="timeout" from="dash_timer" to="." method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="dash_recovery" to="." method="_on_dash_recovery_timeout"]
