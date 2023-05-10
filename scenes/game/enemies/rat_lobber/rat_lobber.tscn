@@ -1,0 +1,128 @@
+[gd_scene load_steps=13 format=3 uid="uid://djfew2tctjlm5"]
+
+[ext_resource type="Script" path="res://scenes/game/enemies/rat_lobber/rat_lobber.gd" id="1_fs4lc"]
+[ext_resource type="Texture2D" uid="uid://cufuxtpp5vo2q" path="res://scenes/game/enemies/rat_lobber/rat_lobber.png" id="2_7dnul"]
+[ext_resource type="Shader" path="res://addons/framework/shaders/usable_shaders/flash.gdshader" id="2_k6kij"]
+[ext_resource type="Script" path="res://addons/framework/scripts/node_scripts/limb.gd" id="3_pin5o"]
+[ext_resource type="Texture2D" uid="uid://b480yr06x626" path="res://scenes/game/enemies/rat_lobber/rock.png" id="4_nc64b"]
+[ext_resource type="PackedScene" uid="uid://bx5sfpb17klvn" path="res://components/hurtbox.tscn" id="5_nuljs"]
+
+[sub_resource type="Animation" id="Animation_g1ji3"]
+resource_name = "idle"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprites/sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5, 3),
+"transitions": PackedFloat32Array(1, 1.51572, 1.8025),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 0.8), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprites/sprite:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.8, 1.5, 2.3, 3),
+"transitions": PackedFloat32Array(1.46409, 1.46409, 1.46409, 1.46409, 1.46409),
+"update": 0,
+"values": [0.0, -0.0698132, 0.0, 0.0698132, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_flekt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprites/sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprites/sprite:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_aor4n"]
+_data = {
+"RESET": SubResource("Animation_flekt"),
+"idle": SubResource("Animation_g1ji3")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gheko"]
+resource_local_to_scene = true
+shader = ExtResource("2_k6kij")
+shader_parameter/flash = 0.0
+
+[sub_resource type="Gradient" id="Gradient_bxrud"]
+offsets = PackedFloat32Array(0, 0.298013, 0.834437, 1)
+colors = PackedColorArray(0.43135, 0.226935, 0.432077, 1, 0.709804, 0.313726, 0.533333, 1, 0.695806, 0.309362, 0.528243, 1, 0.407843, 0.219608, 0.423529, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oe5t8"]
+size = Vector2(13, 17)
+
+[node name="rat_lobber" type="CharacterBody2D"]
+script = ExtResource("1_fs4lc")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "idle"
+libraries = {
+"": SubResource("AnimationLibrary_aor4n")
+}
+
+[node name="sprites" type="CanvasGroup" parent="."]
+
+[node name="sprite" type="Sprite2D" parent="sprites"]
+material = SubResource("ShaderMaterial_gheko")
+texture = ExtResource("2_7dnul")
+offset = Vector2(0, -9)
+
+[node name="tail" type="Line2D" parent="sprites/sprite"]
+show_behind_parent = true
+position = Vector2(-5, -5)
+points = PackedVector2Array(-4, -11, -5.98614, -8.75161, -6.39817, -7.39875, -6.39996, -5.39875, -5.00436, -2.93861, -3.46748, -1.65877, -2.23315, -0.968533, -0.179307, -0.0843761)
+width = 2.0
+default_color = Color(0.709804, 0.313726, 0.533333, 1)
+gradient = SubResource("Gradient_bxrud")
+joint_mode = 2
+begin_cap_mode = 2
+script = ExtResource("3_pin5o")
+
+[node name="target" type="Node2D" parent="sprites/sprite/tail"]
+position = Vector2(-4, -11)
+
+[node name="rock" type="Sprite2D" parent="sprites/sprite/tail/target"]
+position = Vector2(0, -5)
+texture = ExtResource("4_nc64b")
+
+[node name="hurtbox" parent="." instance=ExtResource("5_nuljs")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox"]
+position = Vector2(-0.5, -8.5)
+shape = SubResource("RectangleShape2D_oe5t8")
+
+[node name="flash_timer" type="Timer" parent="."]
+wait_time = 0.05
+one_shot = true
+
+[connection signal="timeout" from="flash_timer" to="." method="_on_flash_timer_timeout"]

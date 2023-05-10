@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dfv6pxffv07tm"]
+[gd_scene load_steps=5 format=3 uid="uid://dfv6pxffv07tm"]
 
 [ext_resource type="PackedScene" uid="uid://b3tr53e38aa2" path="res://scenes/game/player/player.tscn" id="1_d856h"]
 [ext_resource type="Script" path="res://scenes/game/game.gd" id="1_www5s"]
 [ext_resource type="Texture2D" uid="uid://dm7mg7wx004qp" path="res://icon.svg" id="3_8ppqs"]
+[ext_resource type="PackedScene" uid="uid://djfew2tctjlm5" path="res://scenes/game/enemies/rat_lobber/rat_lobber.tscn" id="4_atioc"]
 
 [node name="game" type="Node2D"]
 script = ExtResource("1_www5s")
@@ -24,3 +25,99 @@ texture = ExtResource("3_8ppqs")
 position = Vector2(270, 253)
 scale = Vector2(4.52344, 0.453125)
 texture = ExtResource("3_8ppqs")
+
+[node name="rat_lobber" parent="." instance=ExtResource("4_atioc")]
+position = Vector2(127, 167)
+
+[node name="rat_lobber2" parent="." instance=ExtResource("4_atioc")]
+position = Vector2(73, 130)
+
+[node name="rat_lobber3" parent="." instance=ExtResource("4_atioc")]
+position = Vector2(187, 178)
+
+[node name="rat_lobber4" parent="." instance=ExtResource("4_atioc")]
+position = Vector2(282, 106)
+
+[node name="rat_lobber5" parent="." instance=ExtResource("4_atioc")]
+position = Vector2(147, 218)
+
+[node name="rat_lobber6" parent="." instance=ExtResource("4_atioc")]
+position = Vector2(82, 193)
+
+[node name="rat_lobber7" parent="." instance=ExtResource("4_atioc")]
+position = Vector2(108, 89)
+
+[node name="rat_lobber8" parent="." instance=ExtResource("4_atioc")]
+position = Vector2(220, 69)
+
+[node name="rat_lobber9" parent="." instance=ExtResource("4_atioc")]
+position = Vector2(377, 165)
+
+[node name="rat_lobber10" parent="." instance=ExtResource("4_atioc")]
+position = Vector2(323, 128)
+
+[node name="rat_lobber11" parent="." instance=ExtResource("4_atioc")]
+position = Vector2(437, 176)
+
+[node name="rat_lobber12" parent="." instance=ExtResource("4_atioc")]
+position = Vector2(532, 104)
+
+[node name="rat_lobber13" parent="." instance=ExtResource("4_atioc")]
+position = Vector2(397, 216)
+
+[node name="rat_lobber14" parent="." instance=ExtResource("4_atioc")]
+position = Vector2(332, 191)
+
+[node name="rat_lobber15" parent="." instance=ExtResource("4_atioc")]
+position = Vector2(358, 87)
+
+[node name="rat_lobber16" parent="." instance=ExtResource("4_atioc")]
+position = Vector2(470, 67)
+
+[node name="rat_lobber17" parent="." instance=ExtResource("4_atioc")]
+position = Vector2(344, 167)
+
+[node name="rat_lobber18" parent="." instance=ExtResource("4_atioc")]
+position = Vector2(290, 130)
+
+[node name="rat_lobber19" parent="." instance=ExtResource("4_atioc")]
+position = Vector2(404, 178)
+
+[node name="rat_lobber20" parent="." instance=ExtResource("4_atioc")]
+position = Vector2(499, 106)
+
+[node name="rat_lobber21" parent="." instance=ExtResource("4_atioc")]
+position = Vector2(364, 218)
+
+[node name="rat_lobber22" parent="." instance=ExtResource("4_atioc")]
+position = Vector2(299, 193)
+
+[node name="rat_lobber23" parent="." instance=ExtResource("4_atioc")]
+position = Vector2(325, 89)
+
+[node name="rat_lobber24" parent="." instance=ExtResource("4_atioc")]
+position = Vector2(437, 69)
+
+[node name="rat_lobber25" parent="." instance=ExtResource("4_atioc")]
+position = Vector2(150, 159)
+
+[node name="rat_lobber26" parent="." instance=ExtResource("4_atioc")]
+position = Vector2(96, 122)
+
+[node name="rat_lobber27" parent="." instance=ExtResource("4_atioc")]
+position = Vector2(210, 170)
+
+[node name="rat_lobber28" parent="." instance=ExtResource("4_atioc")]
+position = Vector2(305, 98)
+
+[node name="rat_lobber29" parent="." instance=ExtResource("4_atioc")]
+position = Vector2(170, 210)
+
+[node name="rat_lobber30" parent="." instance=ExtResource("4_atioc")]
+position = Vector2(105, 185)
+
+[node name="rat_lobber31" parent="." instance=ExtResource("4_atioc")]
+position = Vector2(131, 81)
+
+[node name="rat_lobber32" parent="." instance=ExtResource("4_atioc")]
+position = Vector2(243, 61)

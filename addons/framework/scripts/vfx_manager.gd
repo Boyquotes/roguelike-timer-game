@@ -10,6 +10,7 @@ func _ready():
 	add_vfx("real_shockwave", "res://addons/framework/op_nodes/vfx/realistic_shockwave.tscn")
 	
 	add_vfx("gun_shoot", "res://vfx/gun_shoot.tscn")
+	add_vfx("basic_bullet_hit", "res://vfx/basic_bullet_hit.tscn")
 
 func set_target(new_target):
 	target = new_target

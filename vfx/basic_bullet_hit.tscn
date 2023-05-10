@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://du2s38dnsx38"]
+
+[ext_resource type="Texture2D" uid="uid://dkxgdkq14n8yt" path="res://vfx/big_dust_particles.png" id="1_v6w02"]
+[ext_resource type="PackedScene" path="res://addons/framework/op_nodes/vfx/black_flash.tscn" id="2_e063k"]
+
+[sub_resource type="Curve" id="Curve_hj2av"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.114458, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_alen8"]
+curve = SubResource("Curve_hj2av")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ro6wx"]
+emission_shape = 1
+emission_sphere_radius = 8.0
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+initial_velocity_max = 80.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+damping_min = 100.0
+damping_max = 100.0
+angle_min = -720.0
+angle_max = 720.0
+scale_min = 0.25
+scale_max = 0.8
+scale_curve = SubResource("CurveTexture_alen8")
+
+[node name="basic_bullet_hit" type="GPUParticles2D"]
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_ro6wx")
+texture = ExtResource("1_v6w02")
+one_shot = true
+speed_scale = 2.0
+explosiveness = 1.0
+
+[node name="BlackFlash" parent="." instance=ExtResource("2_e063k")]
+wait_time = 0.09

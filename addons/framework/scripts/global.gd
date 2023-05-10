@@ -1,6 +1,7 @@
 extends Node
 
 var time := .0
+var player_position
 
 func _process(delta):
 	

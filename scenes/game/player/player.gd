@@ -64,7 +64,9 @@ func _process(delta):
 	
 	move_and_slide()
 	
-	knockback *= delta * 60 * 0.9
+	knockback -= knockback * delta * 5
+	
+	Global.player_position = global_position
 
 
 func _on_dash_timer_timeout():
@@ -74,8 +76,8 @@ func _on_dash_timer_timeout():
 func _on_dash_recovery_timeout():
 	can_dash = true
 	flash()
-	
-	
+
+
 func flash():
 	$sprites/PlayerBody.material.set("shader_parameter/flash", true)
 	$flash_timer.start()

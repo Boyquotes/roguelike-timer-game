@@ -13,22 +13,6 @@ shader_parameter/dir = Vector2(0.2, 0)
 shader_parameter/quality = 10
 shader_parameter/flash = null
 
-[sub_resource type="Animation" id="Animation_6jdm0"]
-resource_name = "spawn"
-length = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.01, 0.0499453),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(1e-05, 1e-05), Vector2(2, 2), Vector2(1, 1)]
-}
-
 [sub_resource type="Animation" id="Animation_yjx7r"]
 length = 0.001
 tracks/0/type = "value"
@@ -58,6 +42,22 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(1, 1), Vector2(1e-05, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_6jdm0"]
+resource_name = "spawn"
+length = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.01, 0.0499453),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(2, 2), Vector2(1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4feuq"]
@@ -91,7 +91,7 @@ one_shot = true
 [node name="hitbox" parent="." instance=ExtResource("5_qy5pu")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
-visible = false
 shape = SubResource("RectangleShape2D_xavuy")
 
 [connection signal="timeout" from="death_timer" to="." method="_on_death_timer_timeout"]
+[connection signal="hit_something" from="hitbox" to="." method="_on_hitbox_hit_something"]
