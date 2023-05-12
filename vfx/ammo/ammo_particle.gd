@@ -25,4 +25,4 @@ func _process(delta):
 		global_position.y = start_y_pos + elevation
 		vel.y *= -0.5
 	
-	rotation += vel.y * 0.005
+	rotation += abs(vel.y * 0.005)

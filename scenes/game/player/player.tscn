@@ -1,6 +1,7 @@
-[gd_scene load_steps=24 format=3 uid="uid://b3tr53e38aa2"]
+[gd_scene load_steps=25 format=3 uid="uid://b3tr53e38aa2"]
 
 [ext_resource type="Script" path="res://scenes/game/player/player.gd" id="1_ylnt7"]
+[ext_resource type="PackedScene" uid="uid://deqn47jgolw5v" path="res://scenes/game/player/weapons/burst_rifle/burst_rifle_anchor.tscn" id="2_7ke11"]
 [ext_resource type="Texture2D" uid="uid://bj47m6crjbnri" path="res://scenes/game/player/player_body.png" id="2_52e58"]
 [ext_resource type="Shader" path="res://addons/framework/shaders/usable_shaders/smear.gdshader" id="2_e6ddp"]
 [ext_resource type="Texture2D" uid="uid://dt2q21orn5lwe" path="res://scenes/game/player/player_head.png" id="3_v15gs"]
@@ -248,6 +249,7 @@ height = 12.0
 
 [node name="player" type="CharacterBody2D"]
 script = ExtResource("1_ylnt7")
+weapons = [ExtResource("2_7ke11"), ExtResource("9_1m3h8")]
 
 [node name="sprites" type="CanvasGroup" parent="."]
 
@@ -311,9 +313,6 @@ one_shot = true
 [node name="flash_timer" type="Timer" parent="."]
 wait_time = 0.05
 one_shot = true
-
-[node name="shotgun_anchor" parent="." instance=ExtResource("9_1m3h8")]
-position = Vector2(0, -9)
 
 [connection signal="timeout" from="dash_timer" to="." method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="dash_recovery" to="." method="_on_dash_recovery_timeout"]

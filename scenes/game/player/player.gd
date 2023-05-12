@@ -14,7 +14,26 @@ var dash_vel := Vector2.ZERO
 
 var vel := Vector2.ZERO
 
+var weapon_on := 0
+@export var weapons = []
+
+func _ready():
+	for i in len(weapons):
+		weapons[i] = weapons[i].instantiate()
+		weapons[i].position.y = -9
+	
+	add_child(weapons[0])
+
 func _process(delta):
+	if Input.is_action_just_pressed("swap"):
+		remove_child(weapons[weapon_on])
+		
+		weapon_on += 1
+		if weapon_on >= len(weapons):
+			weapon_on = 0
+			
+		add_child(weapons[weapon_on])
+	
 	var movement_input = Vector2(
 		(float(Input.is_action_pressed("right")) - float(Input.is_action_pressed("left"))),
 		(float(Input.is_action_pressed("down")) - float(Input.is_action_pressed("up")))

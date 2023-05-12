@@ -7,3 +7,5 @@ res://scenes/game/player/weapons/burst_rifle/burst_rifle_anchor.tscn
 res://vfx/enemy_body.tscn
 res://scenes/game/player/weapons/gun.gd
 res://scenes/game/player/weapons/shotgun/shotgun.tscn
+res://scenes/game/player/player.gd
+res://vfx/ammo/ammo_particle.gd
