@@ -4,6 +4,7 @@ var velocity : Vector2
 var damping  := .0
 var lifetime := 10.0
 var start_velocity
+var knockback := 0.0
 
 func _ready():
 	$death_timer.wait_time = lifetime
@@ -22,7 +23,7 @@ func _process(delta):
 	
 	var vel_scale = start_velocity / velocity
 	$hitbox.attack.damage = 1
-	$hitbox.attack.knockback = velocity.normalized() * 150
+	$hitbox.attack.knockback = velocity.normalized() * knockback
 	
 	material.set("shader_parameter/dir", velocity.length() * 0.00025 * Vector2.RIGHT)
 

@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://scenes/game/player/UI/cursor.gd" id="5_h3gsf"]
 [ext_resource type="Texture2D" uid="uid://dkxgdkq14n8yt" path="res://vfx/big_dust_particles.png" id="7_s81sr"]
 [ext_resource type="PackedScene" path="res://addons/framework/op_nodes/shakeable_camera_2d.tscn" id="8_qaipp"]
-[ext_resource type="PackedScene" uid="uid://clsswd73pm6wu" path="res://scenes/game/player/weapons/pistol/pistol.tscn" id="9_vyvge"]
+[ext_resource type="PackedScene" uid="uid://dnk7upgaw3a8n" path="res://scenes/game/player/weapons/shotgun/shotgun.tscn" id="9_1m3h8"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lrq1y"]
 shader = ExtResource("2_e6ddp")
@@ -312,7 +312,7 @@ one_shot = true
 wait_time = 0.05
 one_shot = true
 
-[node name="pistol_anchor" parent="." instance=ExtResource("9_vyvge")]
+[node name="shotgun_anchor" parent="." instance=ExtResource("9_1m3h8")]
 position = Vector2(0, -9)
 
 [connection signal="timeout" from="dash_timer" to="." method="_on_dash_timer_timeout"]

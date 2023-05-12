@@ -11,6 +11,9 @@ func _ready():
 	
 	add_vfx("gun_shoot", "res://vfx/gun_shoot.tscn")
 	add_vfx("basic_bullet_hit", "res://vfx/basic_bullet_hit.tscn")
+	add_vfx("ammo_particle", "res://vfx/ammo/ammo_particle.tscn")
+	
+	add_vfx("enemy_body", "res://vfx/enemy_body.tscn")
 
 func set_target(new_target):
 	target = new_target

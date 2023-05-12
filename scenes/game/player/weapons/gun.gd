@@ -10,6 +10,7 @@ extends Sprite2D
 @export var lifetime      := 10.0
 @export var speed_random  := 0.0
 @export var projectile_scene : PackedScene
+@export var knockback     := 150.0
 
 @export var burst := 1
 @export var burst_delay := .0
@@ -18,6 +19,7 @@ var bursts_left := 0
 var current_burst_delay := .0
 
 @export var shake_strength := 2
+@export var ammo_particle := "shell"
 
 var can_shoot = false
 @onready var world  := get_parent().get_parent().get_parent()
@@ -76,11 +78,12 @@ func shoot():
 		var projectile = projectile_scene.instantiate()
 		
 		projectile.global_position = barrel_end
-		projectile.velocity = Vector2(bullet_speed, .0).rotated(get_shoot_angle())
-		projectile.velocity = projectile.velocity.rotated(deg_to_rad(randf_range(-spread * 0.5, spread * 0.5)))
-		projectile.velocity *= randf_range(1.0 - speed_random, 1.0 + speed_random)
-		projectile.damping  = damping
-		projectile.lifetime = lifetime
+		projectile.velocity  = Vector2(bullet_speed, .0).rotated(get_shoot_angle())
+		projectile.velocity  = projectile.velocity.rotated(deg_to_rad(randf_range(-spread * 0.5, spread * 0.5)))
+		projectile.velocity  *= randf_range(1.0 - speed_random, 1.0 + speed_random)
+		projectile.damping   = damping
+		projectile.lifetime  = lifetime
+		projectile.knockback = knockback
 		
 		world.add_child(projectile)
 	
@@ -88,6 +91,9 @@ func shoot():
 	
 	$reload_timer.start()
 
+func ejact_casing():
+	var ammo_particle_node = VfxManager.play_vfx("ammo_particle", global_position)
+	ammo_particle_node.reset_texture(ammo_particle)
 
 func reload():
 	can_shoot = true

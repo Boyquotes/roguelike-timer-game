@@ -1,0 +1,102 @@
+[gd_scene load_steps=10 format=3 uid="uid://w8smcvwp2p7p"]
+
+[ext_resource type="Script" path="res://vfx/enemy_body.gd" id="1_blg2j"]
+[ext_resource type="Texture2D" uid="uid://dkxgdkq14n8yt" path="res://vfx/big_dust_particles.png" id="2_6thox"]
+[ext_resource type="PackedScene" path="res://addons/framework/op_nodes/vfx/black_flash.tscn" id="3_i8jt7"]
+
+[sub_resource type="Animation" id="Animation_g5uho"]
+resource_name = "0.5"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(2.37841, 0.420448),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("fly_particles:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_7herg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("fly_particles:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_38v2q"]
+_data = {
+"0.5": SubResource("Animation_g5uho"),
+"RESET": SubResource("Animation_7herg")
+}
+
+[sub_resource type="Curve" id="Curve_ejstw"]
+_data = [Vector2(0, 0.0454545), 0.0, 0.0, 0, 0, Vector2(0.0662651, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_vpiqs"]
+curve = SubResource("Curve_ejstw")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fbrb3"]
+particle_flag_disable_z = true
+spread = 180.0
+gravity = Vector3(0, 10, 0)
+initial_velocity_max = 25.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+damping_max = 100.0
+angle_min = -720.0
+scale_curve = SubResource("CurveTexture_vpiqs")
+
+[node name="enemy_body" type="Node2D"]
+modulate = Color(100, 100, 100, 1)
+script = ExtResource("1_blg2j")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "0.5"
+libraries = {
+"": SubResource("AnimationLibrary_38v2q")
+}
+
+[node name="fly_particles" type="GPUParticles2D" parent="."]
+process_material = SubResource("ParticleProcessMaterial_fbrb3")
+texture = ExtResource("2_6thox")
+lifetime = 0.25
+
+[node name="BlackFlash" parent="." instance=ExtResource("3_i8jt7")]
+wait_time = 0.08

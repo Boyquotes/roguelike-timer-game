@@ -29,7 +29,13 @@ func hit(attack):
 	
 	if hp <= 0:
 		queue_free()
-
+		var sprites = $sprites
+		remove_child(sprites)
+		
+		var body_vfx = VfxManager.play_vfx("enemy_body", global_position)
+		body_vfx.add_child(sprites)
+		body_vfx.vel = knockback.normalized() * 300 + Vector2(0, -100)
+		
 func flash():
 	$sprites/sprite.material.set("shader_parameter/flash", 1.0)
 	$flash_timer.start()
