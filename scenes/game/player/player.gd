@@ -20,19 +20,13 @@ var weapon_on := 0
 func _ready():
 	for i in len(weapons):
 		weapons[i] = weapons[i].instantiate()
-		weapons[i].position.y = -9
-	
+		weapons[i].position.y = -8
+		
 	add_child(weapons[0])
 
 func _process(delta):
 	if Input.is_action_just_pressed("swap"):
-		remove_child(weapons[weapon_on])
-		
-		weapon_on += 1
-		if weapon_on >= len(weapons):
-			weapon_on = 0
-			
-		add_child(weapons[weapon_on])
+		swap_weapon()
 	
 	var movement_input = Vector2(
 		(float(Input.is_action_pressed("right")) - float(Input.is_action_pressed("left"))),
@@ -87,6 +81,17 @@ func _process(delta):
 	
 	Global.player_position = global_position
 
+func swap_weapon():
+	remove_child(weapons[weapon_on])
+		
+	weapon_on += 1
+	if weapon_on >= len(weapons):
+		weapon_on = 0
+			
+	add_child(weapons[weapon_on])
+	weapons[weapon_on].rotation = get_local_mouse_position().angle()
+	weapons[weapon_on].scale.x = 0
+	create_tween().tween_property(weapons[weapon_on], "scale:x", 1, 0.2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
 
 func _on_dash_timer_timeout():
 	dashing = false
