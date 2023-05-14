@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://djfew2tctjlm5"]
+[gd_scene load_steps=14 format=3 uid="uid://djfew2tctjlm5"]
 
 [ext_resource type="Script" path="res://scenes/game/enemies/rat_lobber/rat_lobber.gd" id="1_fs4lc"]
 [ext_resource type="Texture2D" uid="uid://cufuxtpp5vo2q" path="res://scenes/game/enemies/rat_lobber/rat_lobber.png" id="2_7dnul"]
@@ -33,6 +33,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [0.0]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("sprites/sprite/tail/target:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-4, -11)]
+}
 
 [sub_resource type="Animation" id="Animation_g1ji3"]
 resource_name = "idle"
@@ -46,7 +58,7 @@ tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 1.5, 3),
-"transitions": PackedFloat32Array(1, 1.51572, 1.8025),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(1, 1), Vector2(1.2, 0.8), Vector2(1, 1)]
 }
@@ -58,14 +70,31 @@ tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.8, 1.5, 2.3, 3),
-"transitions": PackedFloat32Array(1.46409, 1.46409, 1.46409, 1.46409, 1.46409),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
 "values": [0.0, -0.0698132, 0.0, 0.0698132, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_03dx0"]
+resource_name = "attack"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprites/sprite/tail/target:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8, 1.3, 1.5, 3),
+"transitions": PackedFloat32Array(-2, 1, -2, -2, -2),
+"update": 0,
+"values": [Vector2(-4, -11), Vector2(-15, -1), Vector2(-15, -1), Vector2(-8, -10), Vector2(-4, -11)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_aor4n"]
 _data = {
 "RESET": SubResource("Animation_flekt"),
+"attack": SubResource("Animation_03dx0"),
 "idle": SubResource("Animation_g1ji3")
 }
 
@@ -100,7 +129,7 @@ offset = Vector2(0, -9)
 [node name="tail" type="Line2D" parent="sprites/sprite"]
 show_behind_parent = true
 position = Vector2(-5, -5)
-points = PackedVector2Array(-4, -11, -5.98614, -8.75161, -6.39817, -7.39875, -6.39996, -5.39875, -5.00436, -2.93861, -3.46748, -1.65877, -2.23315, -0.968533, -0.179307, -0.0843761)
+points = PackedVector2Array(-4, -11, -6.18366, -8.9429, -6.81942, -7.67965, -6.73772, -5.68132, -5.19929, -3.30788, -3.66645, -2.0232, -2.46622, -1.27525, -0.480995, -0.246222)
 width = 2.0
 default_color = Color(0.709804, 0.313726, 0.533333, 1)
 gradient = SubResource("Gradient_bxrud")
@@ -125,4 +154,9 @@ shape = SubResource("RectangleShape2D_oe5t8")
 wait_time = 0.05
 one_shot = true
 
+[node name="attack_timer" type="Timer" parent="."]
+wait_time = 4.0
+autostart = true
+
 [connection signal="timeout" from="flash_timer" to="." method="_on_flash_timer_timeout"]
+[connection signal="timeout" from="attack_timer" to="." method="_on_attack_timer_timeout"]

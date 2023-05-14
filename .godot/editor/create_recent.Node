@@ -1,8 +1,8 @@
+Timer
 GPUParticles2D
 AnimationPlayer
 Node2D
 Sprite2D
-Timer
 CollisionShape2D
 CanvasGroup
 CharacterBody2D

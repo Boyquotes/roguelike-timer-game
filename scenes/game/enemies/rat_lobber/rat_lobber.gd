@@ -2,9 +2,15 @@ extends CharacterBody2D
 
 var hp := 3
 var knockback := Vector2.ZERO
+var attacking = false
 
 func _process(delta):
-	$sprites/sprite/tail/target.position = Vector2(-4, -11) + Vector2(4, 0).rotated(Global.time)
+	if !attacking: 
+		$sprites/sprite/tail/target.position = lerp(
+			$sprites/sprite/tail/target.position,
+			Vector2(-4, -11) + Vector2(4, 0).rotated(Global.time),
+			delta * 2
+		)
 	
 	$sprites.scale.x = lerp($sprites.scale.x,
 		float(Global.player_position.x > global_position.x) * 2 - 1,
@@ -42,3 +48,11 @@ func flash():
 	
 func _on_flash_timer_timeout():
 	$sprites/sprite.material.set("shader_parameter/flash", 0.0)
+
+
+func _on_attack_timer_timeout():
+	attacking = true
+	$AnimationPlayer.play("attack")
+	await get_tree().create_timer(3).timeout
+	attacking = false
+	$AnimationPlayer.play("idle")
