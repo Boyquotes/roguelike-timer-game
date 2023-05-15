@@ -4,13 +4,9 @@ var hp := 3
 var knockback := Vector2.ZERO
 var attacking = false
 
+const bullet = preload("res://scenes/game/enemy_projectiles/enemy_bullet.tscn")
+
 func _process(delta):
-	if !attacking: 
-		$sprites/sprite/tail/target.position = lerp(
-			$sprites/sprite/tail/target.position,
-			Vector2(-4, -11) + Vector2(4, 0).rotated(Global.time),
-			delta * 2
-		)
 	
 	$sprites.scale.x = lerp($sprites.scale.x,
 		float(Global.player_position.x > global_position.x) * 2 - 1,
@@ -56,3 +52,13 @@ func _on_attack_timer_timeout():
 	await get_tree().create_timer(3).timeout
 	attacking = false
 	$AnimationPlayer.play("idle")
+
+func shoot():
+	for i in 3:
+		var bullet_node = bullet.instantiate()
+		
+		get_parent().add_child(bullet_node)
+		
+		bullet_node.global_position = $sprites/sprite/tail/target/rock.global_position
+		var difference = Global.player_position - global_position
+		bullet_node.velocity = (difference.normalized() * randf_range(48, 96)).rotated((randf() * 2 - 1) * 0.6)

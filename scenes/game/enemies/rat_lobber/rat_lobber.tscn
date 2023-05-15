@@ -46,6 +46,36 @@ tracks/2/keys = {
 "values": [Vector2(-4, -11)]
 }
 
+[sub_resource type="Animation" id="Animation_03dx0"]
+resource_name = "attack"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprites/sprite/tail/target:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8, 1.3, 1.5, 3),
+"transitions": PackedFloat32Array(1.62451, 1, -2, -2, -2),
+"update": 0,
+"values": [Vector2(-4, -11), Vector2(-15, -1), Vector2(-15, -1), Vector2(7, -13), Vector2(-4, -11)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"shoot"
+}]
+}
+
 [sub_resource type="Animation" id="Animation_g1ji3"]
 resource_name = "idle"
 length = 3.0
@@ -58,7 +88,7 @@ tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 1.5, 3),
-"transitions": PackedFloat32Array(1, 1, 1),
+"transitions": PackedFloat32Array(-1.31951, -1.31951, -1.31951),
 "update": 0,
 "values": [Vector2(1, 1), Vector2(1.2, 0.8), Vector2(1, 1)]
 }
@@ -70,25 +100,21 @@ tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.8, 1.5, 2.3, 3),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"transitions": PackedFloat32Array(-1.31951, -1.31951, -1.31951, -1.31951, -1.31951),
 "update": 0,
 "values": [0.0, -0.0698132, 0.0, 0.0698132, 0.0]
 }
-
-[sub_resource type="Animation" id="Animation_03dx0"]
-resource_name = "attack"
-length = 3.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("sprites/sprite/tail/target:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.8, 1.3, 1.5, 3),
-"transitions": PackedFloat32Array(-2, 1, -2, -2, -2),
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("sprites/sprite/tail/target:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.5, 3),
+"transitions": PackedFloat32Array(-1.31951, -1.31951, -1.31951),
 "update": 0,
-"values": [Vector2(-4, -11), Vector2(-15, -1), Vector2(-15, -1), Vector2(-8, -10), Vector2(-4, -11)]
+"values": [Vector2(-4, -8), Vector2(-3.16667, -15.5), Vector2(-4, -8)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_aor4n"]
@@ -115,6 +141,7 @@ script = ExtResource("1_fs4lc")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "idle"
+playback_default_blend_time = 0.4
 libraries = {
 "": SubResource("AnimationLibrary_aor4n")
 }
@@ -129,7 +156,7 @@ offset = Vector2(0, -9)
 [node name="tail" type="Line2D" parent="sprites/sprite"]
 show_behind_parent = true
 position = Vector2(-5, -5)
-points = PackedVector2Array(-4, -11, -6.18366, -8.9429, -6.81942, -7.67965, -6.73772, -5.68132, -5.19929, -3.30788, -3.66645, -2.0232, -2.46622, -1.27525, -0.480995, -0.246222)
+points = PackedVector2Array(-4, -11, -5.80468, -8.60351, -6.48705, -7.36482, -6.69551, -5.37571, -5.16454, -2.99745, -3.44633, -1.97385, -2.1964, -1.31229, -0.27685, -0.165411)
 width = 2.0
 default_color = Color(0.709804, 0.313726, 0.533333, 1)
 gradient = SubResource("Gradient_bxrud")

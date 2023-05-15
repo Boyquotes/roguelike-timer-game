@@ -1,7 +1,9 @@
 res://scenes/game/enemies/rat_lobber/rat_lobber.tscn
-res://scenes/game/enemies/rat_lobber/rat_lobber.gd
 res://scenes/game/game.tscn
 res://scenes/game/player/player.tscn
 res://vfx/ammo/ammo_particle.tscn
 res://scenes/game/player/weapons/burst_rifle/burst_rifle_anchor.tscn
 res://vfx/enemy_body.tscn
+res://scenes/game/enemies/rat_lobber/rat_lobber.gd
+res://scenes/game/enemy_projectiles/enemy_bullet.tscn
+res://scenes/game/enemy_projectiles/enemy_bullet.gd

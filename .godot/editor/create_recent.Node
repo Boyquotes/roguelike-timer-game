@@ -1,12 +1,12 @@
+AnimationPlayer
+AnimationTree
+Sprite2D
 Timer
 GPUParticles2D
-AnimationPlayer
 Node2D
-Sprite2D
 CollisionShape2D
 CanvasGroup
 CharacterBody2D
-AnimationTree
 Polygon2D
 Area2D
 CanvasLayer

@@ -1,0 +1,65 @@
+[gd_scene load_steps=8 format=3 uid="uid://du8y5ovfgbvk2"]
+
+[ext_resource type="Texture2D" uid="uid://022me0y55476" path="res://scenes/game/enemy_projectiles/rock.png" id="1_028fx"]
+[ext_resource type="Script" path="res://scenes/game/enemy_projectiles/enemy_bullet.gd" id="2_edwc5"]
+[ext_resource type="Texture2D" uid="uid://be8lh8pe375ol" path="res://vfx/glow.png" id="2_q64a0"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_x751h"]
+blend_mode = 1
+
+[sub_resource type="Animation" id="Animation_imq16"]
+resource_name = "spawn"
+length = 0.15
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Vector2(1.5, 1.5), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_k2qr7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.5, 1.5)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vw0nl"]
+_data = {
+"RESET": SubResource("Animation_k2qr7"),
+"spawn": SubResource("Animation_imq16")
+}
+
+[node name="basic_enemy_bullet" type="Sprite2D"]
+z_index = 1
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_028fx")
+script = ExtResource("2_edwc5")
+
+[node name="glow" type="Sprite2D" parent="."]
+modulate = Color(2, 0, 0, 1)
+material = SubResource("CanvasItemMaterial_x751h")
+position = Vector2(0, 0.5)
+scale = Vector2(0.16, 0.16)
+texture = ExtResource("2_q64a0")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "spawn"
+libraries = {
+"": SubResource("AnimationLibrary_vw0nl")
+}
