@@ -1,8 +1,8 @@
+GPUParticles2D
 AnimationPlayer
 AnimationTree
 Sprite2D
 Timer
-GPUParticles2D
 Node2D
 CollisionShape2D
 CanvasGroup

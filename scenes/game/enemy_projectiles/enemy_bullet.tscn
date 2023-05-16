@@ -1,11 +1,51 @@
-[gd_scene load_steps=8 format=3 uid="uid://du8y5ovfgbvk2"]
+[gd_scene load_steps=12 format=3 uid="uid://du8y5ovfgbvk2"]
 
 [ext_resource type="Texture2D" uid="uid://022me0y55476" path="res://scenes/game/enemy_projectiles/rock.png" id="1_028fx"]
 [ext_resource type="Script" path="res://scenes/game/enemy_projectiles/enemy_bullet.gd" id="2_edwc5"]
 [ext_resource type="Texture2D" uid="uid://be8lh8pe375ol" path="res://vfx/glow.png" id="2_q64a0"]
+[ext_resource type="Texture2D" uid="uid://bhggouf4c2wb" path="res://vfx/huge_dust_particles.png" id="4_oh2ch"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_x751h"]
 blend_mode = 1
+
+[sub_resource type="Animation" id="Animation_k2qr7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.5, 1.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("glow:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.2, 0.2)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("spawn_particles:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_imq16"]
 resource_name = "spawn"
@@ -23,20 +63,29 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector2(1.5, 1.5), Vector2(1, 1)]
 }
-
-[sub_resource type="Animation" id="Animation_k2qr7"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("glow:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Vector2(0.2, 0.2), Vector2(0.16, 0.16)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("spawn_particles:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1.5, 1.5)]
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vw0nl"]
@@ -44,6 +93,22 @@ _data = {
 "RESET": SubResource("Animation_k2qr7"),
 "spawn": SubResource("Animation_imq16")
 }
+
+[sub_resource type="Curve" id="Curve_ecssm"]
+_data = [Vector2(0, 0.0272727), 0.0, 0.0, 0, 0, Vector2(0.0421687, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_yudeo"]
+curve = SubResource("Curve_ecssm")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wxda8"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+angle_min = -720.0
+angle_max = 720.0
+scale_curve = SubResource("CurveTexture_yudeo")
 
 [node name="basic_enemy_bullet" type="Sprite2D"]
 z_index = 1
@@ -55,7 +120,7 @@ script = ExtResource("2_edwc5")
 modulate = Color(2, 0, 0, 1)
 material = SubResource("CanvasItemMaterial_x751h")
 position = Vector2(0, 0.5)
-scale = Vector2(0.16, 0.16)
+scale = Vector2(0.2, 0.2)
 texture = ExtResource("2_q64a0")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -63,3 +128,15 @@ autoplay = "spawn"
 libraries = {
 "": SubResource("AnimationLibrary_vw0nl")
 }
+
+[node name="spawn_particles" type="GPUParticles2D" parent="."]
+modulate = Color(0.894118, 0.231373, 0.266667, 1)
+show_behind_parent = true
+position = Vector2(0.666667, 0.666667)
+emitting = false
+amount = 2
+process_material = SubResource("ParticleProcessMaterial_wxda8")
+texture = ExtResource("4_oh2ch")
+one_shot = true
+explosiveness = 1.0
+local_coords = true
